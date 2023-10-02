@@ -44,7 +44,7 @@ export function constructMetadata({
       ]
     },
     icons,
-    metadataBase: new URL(process.env.VERCEL_URL || "https://tass-theta.vercel.app"),
+    metadataBase: new URL("https://tass-theta.vercel.app"),
     themeColor: "#FFF",
     ...(noIndex && {
       robots: {
