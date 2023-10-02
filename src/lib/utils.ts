@@ -1,4 +1,5 @@
 import { type ClassValue, clsx } from "clsx"
+import { Metadata } from "next"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs: ClassValue[]) {
@@ -15,4 +16,41 @@ export function absoluteUrl(path: string) {
   }
 
   return `http://localhost:3000${path}`
+}
+
+export function constructMetadata({
+  title = "Tass - the SaaS for PDFs",
+  description = "tass is an open-source AI PDF Chatter",
+  image = "/thumbnail.png",
+  icons = "/favicon.ico",
+  noIndex = false
+}: {
+  title?: string
+  description?: string
+  image?: string
+  icons?: string
+  noIndex?: boolean
+} = {}): Metadata {
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [
+        {
+          url: image
+        }
+      ]
+    },
+    icons,
+    metadataBase: new URL(process.env.VERCEL_URL || "https://tass-theta.vercel.app"),
+    themeColor: "#FFF",
+    ...(noIndex && {
+      robots: {
+        index: false,
+        follow: false
+      }
+    })
+  }
 }
